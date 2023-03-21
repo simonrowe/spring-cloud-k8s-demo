@@ -1,0 +1,9 @@
+feature:
+  flags:
+    FEATURE_ONE: true
+    FEATURE_TWO: false
+    FEATURE_THREE: true
+    FEATURE_FOUR: true
+    FEATURE_FIVE: true
+
+

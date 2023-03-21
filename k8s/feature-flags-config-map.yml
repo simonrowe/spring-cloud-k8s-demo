@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: feature-flags
+data:
+  # property-like keys; each key maps to a simple value
+  application.yml: |
+    feature:
+      flags:
+        FEATURE_ONE: false
+        FEATURE_TWO: false
+        FEATURE_THREE: false
+        FEATURE_FOUR: false
+        FEATURE_FIVE: false
