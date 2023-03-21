@@ -13,3 +13,7 @@ kind create cluster
 ```shell
 kubectl apply -f k8s/feature-flags-config-map.yml
 ```
+
+## To build an image:
+```./gradlew clean build bootBuildImage```
+
