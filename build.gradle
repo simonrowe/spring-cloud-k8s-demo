@@ -39,4 +39,11 @@ tasks.named('test') {
 tasks.named("bootBuildImage") {
 	environment["BP_JVM_VERSION"] = "17"
 	imageName.set("ghcr.io/simonrowe/${project.name}")
+	docker {
+		publishRegistry {
+			username = System.getenv("GITHUB_ACTOR")
+			password = System.getenv("GITHUB_TOKEN")
+			url = "https://ghcr.io"
+		}
+	}
 }
