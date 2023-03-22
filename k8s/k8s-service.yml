@@ -35,10 +35,8 @@ customResources:
 
 containerImage:
   repository: "ghcr.io/simonrowe/spring-cloud-k8s-demo"
-  tag: v0.0.8
+  tag: v0.0.9
   pullPolicy: IfNotPresent
-
-
 
 
 containerPorts:
@@ -90,7 +88,3 @@ ingress:
   pathType: "ImplementationSpecific"
   hosts:
     - spring-cloud-k8s-demo.com
-
-
-environment:
-  SPRING_CLOUD_BOOTSTRAP_ENABLED: true

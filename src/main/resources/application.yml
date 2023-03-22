@@ -6,6 +6,10 @@ feature:
     FEATURE_FOUR: true
     FEATURE_FIVE: true
 
+spring:
+  config:
+    import: kubernetes
+
 server:
   port: 8081
 
