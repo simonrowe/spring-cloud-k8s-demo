@@ -1,0 +1,86 @@
+applicationName: spring-cloud-k8s-demo
+replicaCount: 1
+minAvailable: 1
+
+serviceAccount:
+  name: "spring-cloud-k8s-demo"
+  create: true
+
+customResources:
+  enabled: true
+  resources:
+    role_binding: |
+      kind: RoleBinding
+      apiVersion: rbac.authorization.k8s.io/v1
+      metadata:
+        name: internal-api-gateway-readonly-role-binding
+      subjects:
+        - kind: ServiceAccount
+          name: internal-api-gateway
+          apiGroup: ""
+      roleRef:
+        kind: Role
+        name: app-gateway-access-read-only
+        apiGroup: ""
+
+
+containerImage:
+  repository: "ghcr.io/simonrowe/spring-cloud-k8s-demo"
+  tag: v0.0.6
+  pullPolicy: IfNotPresent
+
+
+
+
+containerPorts:
+  http:
+    port: 8081
+
+
+service:
+  type: NodePort
+
+  ports:
+    app:
+      port: 8081
+
+    metrics:
+      port: 8082
+
+
+containerResources:
+  requests:
+    memory: 512Mi
+
+  limits:
+    memory: 1Gi
+
+livenessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  failureThreshold: 9
+  httpGet:
+    path: /health/liveness
+    port: 8082
+
+
+readinessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  failureThreshold: 9
+
+  httpGet:
+    path: /health/readiness
+    port: 8082
+
+
+ingress:
+  enabled: true
+  path: "/*"
+  servicePort: "app"
+  pathType: "ImplementationSpecific"
+  hosts:
+    - spring-cloud-k8s-demo.com
+  
+
+
