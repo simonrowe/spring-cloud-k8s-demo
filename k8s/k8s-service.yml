@@ -3,30 +3,39 @@ replicaCount: 1
 minAvailable: 1
 
 serviceAccount:
-  name: "spring-cloud-k8s-demo"
+  name: spring-cloud-k8s-demo
   create: true
 
 customResources:
   enabled: true
   resources:
+    role: |
+      kind: Role
+      apiVersion: rbac.authorization.k8s.io/v1
+      metadata:
+        name: config-map-readonly
+      rules:
+        - apiGroups: [""]
+          resources: ["configmaps", "secrets"]
+          verbs: ["get", "list", "watch"]
     role_binding: |
       kind: RoleBinding
       apiVersion: rbac.authorization.k8s.io/v1
       metadata:
-        name: internal-api-gateway-readonly-role-binding
+        name: spring-cloud-k8s-demo-confimap-role-binding
       subjects:
         - kind: ServiceAccount
-          name: internal-api-gateway
+          name: spring-cloud-k8s-demo
           apiGroup: ""
       roleRef:
         kind: Role
-        name: app-gateway-access-read-only
+        name: config-map-readonly
         apiGroup: ""
 
 
 containerImage:
   repository: "ghcr.io/simonrowe/spring-cloud-k8s-demo"
-  tag: v0.0.6
+  tag: v0.0.7
   pullPolicy: IfNotPresent
 
 

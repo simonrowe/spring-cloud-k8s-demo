@@ -22,3 +22,14 @@ management:
         show-details: always
 
 
+---
+spring:
+  cloud:
+    kubernetes:
+      config:
+        enabled: true
+        sources:
+          - name: feature-flags
+  config:
+    activate:
+      on-cloud-platform: kubernetes
