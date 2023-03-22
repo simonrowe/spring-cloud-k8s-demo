@@ -6,9 +6,7 @@ feature:
     FEATURE_FOUR: true
     FEATURE_FIVE: true
 
-spring:
-  config:
-    import: kubernetes
+
 
 server:
   port: 8081
@@ -26,14 +24,8 @@ management:
         show-details: always
 
 
----
-spring:
-  cloud:
-    kubernetes:
-      config:
-        enabled: true
-        sources:
-          - name: feature-flags
-  config:
-    activate:
-      on-cloud-platform: kubernetes
+logging:
+  level:
+    org.springframework.cloud: TRACE
+
+
