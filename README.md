@@ -6,7 +6,12 @@ Demo project showcasing Spring Cloud Kubernetes
 ```shell
 brew install kind
 export KUBECONFIG=~/.kube/kind-config.yaml
-kind create cluster
+kind create cluster --config k8s/kind-cluster.yml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=90s
 ```
 
 ## To create or update feature flags

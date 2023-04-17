@@ -83,8 +83,8 @@ readinessProbe:
 
 ingress:
   enabled: true
-  path: "/*"
+  path: "/"
   servicePort: "app"
-  pathType: "ImplementationSpecific"
+  pathType: "Prefix"
   hosts:
     - spring-cloud-k8s-demo.com
